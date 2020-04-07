@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Taste the Typo</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+<style>
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+
+#app {
+  font-size: 80px;
+  line-height: 75px;
+  font-weight: bold;
+  padding-left:10%;
+  padding-right:10%;
+  padding-top:100px;
+}
+.grid-container {
+  		display: grid;
+  		grid-template-columns: auto auto;
+			margin: 0 auto;
+		}
+.grid-item {
+  		padding: 10px;
+			margin-top:10px;
+			
+		}
+strong {
+  font-weight: 700;
+}
+.content{
+  margin-top:20px;
+  padding-top:10px;
+  padding-left:5%;
+  padding-right:5%;
+  background: rgba(0, 0, 0, 0.6);
+  font-weight:lighter;
+}
+.htmlcode{
+    background:lightgray;
+    width:800px;
+    overflow: auto;
+    max-height: 100vh;
+    font-size:12px;
+    letter-spacing:1px;
+    color:black;
+}
+
+.screenshot{
+    width:800px;
+    overflow: auto;
+    max-height: 100vh;
+    font-size:12px;
+    letter-spacing:1px;
+}
+.footer{
+   margin-top:20px;
+   font-size:20px;
+   letter-spacing:1px;
+   font-weight: bold;
+                }
+  
+.parallax{
+   background-image: url("https://cdn.shopify.com/s/files/1/0070/4620/1459/products/91K50Sj_2BFuL._SL1500.jpg"); /*placeholder*/
+   min-height:1300px; /*should be 100%*/
+   min-width: 100%;
+   /* Create the parallax scrolling effect */
+   background-attachment: fixed;
+   background-position: center;
+   background-repeat: no-repeat;
+   font-family: 'Montserrat', sans-serif;
+   background-size: cover;
+   color:white;
+   font-size:20px;
+   letter-spacing:5px;
+        }
+</style>
+  </head>
+
+  <body>
+ <div class="parallax">
+    <div align="center"><div id="app"> </div></div>
+
+    <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+    <script>
+    const app = document.getElementById("app");
+  const typewriter = new Typewriter(app, {
+    loop: false,
+    delay: 75
+  });
+  
+  typewriter
+    .pauseFor(2500)
+    .typeString("{{title}}")
+    .start();
+    </script>
+
+    <div class="content">
+        <div class="words">
+            <div align="center">
+  Here is the content for your HTML, as well as the full screenshot of the website.
+  Please note that to view the entire HTML document webpage, you may have to use the scrollbar.
+  Also note that this is simply a scrollable image - No need to worry for iFrame security issues :)
+            </div>
+  <div class="grid-container", id = "resultsgrid">
+      <div class="grid-item"> <div class="htmlcode">{{ htmlstr }}</div></div> 
+      <div class="grid-item"> <div class="htmlcode"><img src ={{pngstr}}/></div></div>
+
+		</div>
+ 
+<br>
+<br>
+<div class="col-sm-8">
+    {% for image in results %}
+        <h2>{{image.data}}</h2>
+        <small>Link: {{image.link}}</small>
+        
+    {% endfor %}
+</div>
+</div>
+  <br>
+    </div>
+  </div>
+ </div>
+  </body>
+</html>

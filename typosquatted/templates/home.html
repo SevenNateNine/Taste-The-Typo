@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Taste the Typo</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+<style>
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+
+#app {
+  font-size: 80px;
+  line-height: 75px;
+  font-weight: bold;
+  padding-left:10%;
+  padding-right:10%;
+  padding-top:225px;
+}
+
+strong {
+  font-weight: 700;
+}
+.content{
+  margin-top:20px;
+  padding-top:10px;
+  padding-left:15%;
+  padding-right:15%;
+  background: rgba(0, 0, 0, 0.6);
+  font-weight:lighter;
+}
+
+.footer{
+   margin-top:20px;
+   font-size:20px;
+   letter-spacing:1px;
+   font-weight: bold;
+                }
+  
+.parallax{
+   background-image: url("https://cdn.shopify.com/s/files/1/0070/4620/1459/products/91K50Sj_2BFuL._SL1500.jpg"); /*placeholder*/
+   min-height:1300px; /*should be 100%*/
+   min-width: 100%;
+   /* Create the parallax scrolling effect */
+   background-attachment: fixed;
+   background-position: center;
+   background-repeat: no-repeat;
+   font-family: 'Montserrat', sans-serif;
+   background-size: cover;
+   color:white;
+   font-size:20px;
+   letter-spacing:5px;
+                }
+</style>
+  </head>
+
+  <body>
+ <div class="parallax">
+    <div align="center">
+  <div id="app"> </div>
+
+  <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+  <script>
+  const app = document.getElementById("app");
+const typewriter = new Typewriter(app, {
+  loop: false,
+  delay: 75
+});
+
+typewriter
+  .pauseFor(2500)
+  .typeString("Taste the Typo: A TypoSquatting Deetector.")
+  .pauseFor(300)
+  .deleteChars(9)
+  .typeString("etector.")
+  .pauseFor(1000)
+  .start();
+  </script>
+
+    <div class="content">
+        <div class="words">
+  Ever heard of TypoSquatting? Well, we're here to help! Typosquatting is a
+  practice where an individual will buy a domain and hope that users will mispell its URL,
+  linking instead to their website. They may try to exploit users by tricking them into
+  thinking you're asking for the information. So, is your website being typosquatted?
+  Enter your URL to find out!
+<br>
+<br>
+  <form action="/result/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
+<div class="col-sm-8">
+    {% for image in results %}
+        <h2>{{image.data}}</h2>
+        <small>Link: {{image.link}}</small>
+        
+    {% endfor %}
+</div>
+</div>
+  <br>
+    </div>
+  </div>
+ </div>
+  </body>
+</html>

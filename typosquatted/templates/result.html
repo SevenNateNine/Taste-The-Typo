@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Taste the Typo Results</title>
+		<meta charset="UTF-8"/>
+
+		<style>
+		@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+		.grid-container {
+  			display: grid;
+  			grid-template-columns: auto auto;
+			margin: 0 auto;
+		}
+		.grid-item {
+  			padding: 10px;
+			margin-top:10px;
+			height: 600px;
+			width: 800px;
+			overflow: hidden;
+		}
+		.screenshot{
+			overflow: auto;
+			max-height: 100vh;
+			max-width: 100vh;
+			font-size:12px;
+			letter-spacing:1px;
+		}
+		#app {
+			font-size: 80px;
+			line-height: 75px;
+			font-weight: bold;
+			padding-left:10%;
+			padding-right:10%;
+			padding-top:50px;
+		}
+		.content{
+  			margin-top:20px;
+  			padding-top:10px;
+  			padding-left:5%;
+  			padding-right:5%;
+  			background: rgba(0, 0, 0, 0.6);
+  			font-weight:lighter;
+		}
+  
+		.parallax{
+			background-image: url("https://cdn.shopify.com/s/files/1/0070/4620/1459/products/91K50Sj_2BFuL._SL1500.jpg"); /*placeholder*/
+			min-height:1300px; /*should be 100%*/
+   			min-width: 100%;
+			/* Create the parallax scrolling effect */
+			background-attachment: fixed;
+			background-position: center;
+			background-repeat: no-repeat;
+			font-family: 'Montserrat', sans-serif;
+			background-size: cover;
+			color:white;
+			font-size:20px;
+			letter-spacing:5px;
+		}
+
+		</style>
+	</head>
+	<body>
+	<div class="parallax">
+	<div align="center">
+	<div id="app">
+	Results for {{ input }}
+</div>
+	<div class="content">
+		To View the HTML Bodies of the respective website,
+		along with full size screenshots, 
+		please click on their respective image.
+		<div class="grid-container", id = "resultsgrid">
+			<div class="grid-item">Loading...</div> 
+
+		</div>
+		<script>
+			var input = "{{ input }}"; //I hope this works
+			var directory = "{{ MEDIA_URL }}";
+			var t = setInterval(getResults, 1000);
+			var results = [];
+			 
+			function getResults() {
+				//get all results from DB check them against the results var
+				//then add any new results to the results var and the resultsgrid
+				var indexFile = new XMLHttpRequest();
+				indexFile.onload = function(){
+					var arr = this.responseText.split("\n");
+					//var arr = JSON.parse(this.responseText);
+					displayResults(arr);
+				}
+				if (navigator.appVersion.indexOf("Win") != -1){
+					directory = directory.replace("/","\\\\")
+					input = input.replace("/","\\\\")
+				}
+				indexFile.open("GET", directory + input + "/index.txt", false)
+				indexFile.send()
+
+			function displayResults(arr) {
+  				var out = "";
+  				var i;
+  				for(i = 0; i < arr.length; i++) {
+				if (arr[i] != ""){
+    				out += '<div class=\"grid-item\"><div class=\"screenshot\"><a href= \"http://127.0.0.1:8000/htmlpg/?htmlname=' + input+ "/" + arr[i] + '"><img src = \"' + directory + input+ "/" + arr[i] + '.png\" ></a></div></div>';
+				}
+			}
+  			document.getElementById("resultsgrid").innerHTML = out;
+};
+			}
+		</script>
+		</div></div></div>
+	</body>
+	
+</html>
